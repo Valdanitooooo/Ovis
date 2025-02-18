@@ -1,0 +1,20 @@
+name: 'ovis'
+
+services:
+  ovis-service:
+    image: registry.cn-shenzhen.aliyuncs.com/valdanito/ovis:v2
+    volumes:
+      - ./model:/model
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/model
+      - PORT=8000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
